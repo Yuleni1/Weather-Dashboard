@@ -9,16 +9,18 @@ var userCityInputEl = document.querySelector("#username")
 
 
 
-var getWeatherRepo = function(){
+var getWeatherRepo = function(city){
 
+    //format the github api url
     var apiUrl = 
-   "https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=f1b34903d7c2cdaa6a859360c95e902f"
+   "https://api.openweathermap.org/data/2.5/weather?q="+ city + "&APPID=f1b34903d7c2cdaa6a859360c95e902f"
 
  //if request was successful
 fetch(apiUrl)
 .then(function(response){
     if(response.ok){
         response.json().then(function(data){
+            displayCities(data, city);
             console.log("request successfull",data);
             console.log("this should look like an array", response)
 //check if api has paginated issues
@@ -37,7 +39,7 @@ fetch(apiUrl)
     });
 };
 
-//getWeatherRepo()
+// getWeatherRepo("London")
 
 
 var formSubmitHandler = function(event){
@@ -54,6 +56,13 @@ var formSubmitHandler = function(event){
     else{
         alert("Please enter a valid city");
     }
+
+}
+
+var displayCities = function(city, searchTerm){
+
+    console.log("1",city);
+    console.log("2",searchTerm);
 
 }
 
