@@ -45,6 +45,41 @@ fetch(apiUrl)
 // getWeatherRepo("London")
 
 
+
+var geoCodeing = function(city){
+
+    fetch("http://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=5&appid=f1b34903d7c2cdaa6a859360c95e902f")
+    .then(function(response){
+        return response.json()
+
+    })
+
+    .then(function(data){
+        
+        // console.log("request succesful", data)
+        return data;
+    })
+}
+geoCodeing("london");
+
+
+var getWeatherForcast = function(city){
+    fetch("http://api.openweathermap.org/data/2.5/forecast?q="+city+"&appid=f1b34903d7c2cdaa6a859360c95e902f")
+    .then(function(response){
+        return response.json()
+
+    })
+
+    .then(function(data){
+        
+        console.log("request succesful", data)
+        return data;
+    })
+}
+
+
+getWeatherForcast("london")
+
 var formSubmitHandler = function(event){
     event.preventDefault();
     // console.log(event);
@@ -69,7 +104,7 @@ var displayCities = function(city, searchTerm){
     
     // console.log("1",city);
     // console.log("2",searchTerm);
-console.log("see if this works", city)
+// console.log("see if this works", city)
  
 // City Name  weatherListEl
     var cityNameEl = document.createElement("h2");
@@ -77,7 +112,7 @@ console.log("see if this works", city)
     cityNameEl.textContent =cityInfo;
     cityEl.appendChild(cityNameEl);
  
-    
+   
   
  
         
@@ -94,14 +129,42 @@ console.log("see if this works", city)
         weatherListEl.appendChild(ListEl2);
         weatherListEl.appendChild(ListEl3);
         
-        
-
-
-    
   
 
 
 }
+
+var getForcast = function(city){
+
+    //format the github api url
+    var apiUrl = 
+   "https://api.openweathermap.org/data/2.5/weather?q="+ city + "&units=imperial&APPID=f1b34903d7c2cdaa6a859360c95e902f"
+
+ //if request was successful
+fetch(apiUrl)
+.then(function(response){
+    if(response.ok){
+        response.json().then(function(data){
+            displayCities(data, city);
+            // console.log("request successfull",data);
+            // console.log("this should look like an array", response)
+//check if api has paginated issues
+
+            if(response.headers.get("link")){
+                console.log("bad link");
+                            }
+
+        });
+
+     }else {
+         // if not successful, redirect
+         document.location.replace("./index.html"); 
+         console.log("redirected");
+     }
+    });
+};
+
+
 
 
     
