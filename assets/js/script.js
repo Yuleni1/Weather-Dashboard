@@ -64,16 +64,36 @@ geoCodeing("london");
 
 
 var getWeatherForcast = function(city){
-    fetch("http://api.openweathermap.org/data/2.5/forecast?q="+city+"&appid=f1b34903d7c2cdaa6a859360c95e902f")
+    // fetch("http://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=imperial&appid=f1b34903d7c2cdaa6a859360c95e902f&cnt=1")
+    fetch("https://api.openweathermap.org/data/2.5/onecall?lat=38.7267&lon=-9.1403&exclude=current,hourly,minutely,alerts&units=metric&appid=f1b34903d7c2cdaa6a859360c95e902f")
     .then(function(response){
         return response.json()
 
     })
 
     .then(function(data){
+    
+        console.log(data)
+
+      
+    for (var i = 0; i < data.list.length; i++){
+
+        var forcast = data.list[i]
         
-        console.log("request succesful", data)
+
+        console.log("request succesful",forcast )
+
+
+
+
+}
+
+
         return data;
+
+
+
+
     })
 }
 
