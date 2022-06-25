@@ -1,3 +1,22 @@
 * {
     box-sizing: border-box;
   }
+
+  /* input#username {
+    padding: 0px 100px;
+} */
+
+ul {
+  list-style: none;
+}
+
+.header{
+  width: 100%;
+}
+
+.day{
+  background-color: lightblue;
+  border-radius: 10px;
+  padding: 10px 10px 50px 10px;
+  margin: 5px;
+}
