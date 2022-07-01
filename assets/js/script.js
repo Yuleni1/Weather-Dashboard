@@ -6,7 +6,10 @@ var userCityInputEl = document.querySelector("#username");
 var cityEl = document.querySelector("#city-container");
 var weatherListEl = document.querySelector("#weather-list");
 var fiveDayEl = document.querySelector("#five-day")
+var loadSearchesEl = document.getElementById("saved-searches")
 console.log("for",fiveDayEl)
+
+var loadedSearches = []
 
 //GETS WEATHER
 var getWeather = function(city){
@@ -216,6 +219,18 @@ var formSubmitHandler = function(event){
     else{
         alert("Please enter a valid city");
     }
+
+    loadSearchesEl.innerHTML="";
+
+    var saveCityInput = cityInput
+    localStorage.setItem("saveSearches", saveCityInput)
+    var loadCityInput = localStorage.getItem("saveSearches")
+    
+    loadSearchesEl.innerHTML="";
+
+    var createListEL = document.createElement("li");
+    createListEL.textContent = loadCityInput
+    loadSearchesEl.appendChild(createListEL);
 
 }
 
