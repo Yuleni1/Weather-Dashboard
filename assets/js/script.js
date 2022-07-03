@@ -4,12 +4,14 @@
 var userFormEl= document.querySelector("#user-form");
 var userCityInputEl = document.querySelector("#username");
 var cityEl = document.querySelector("#city-container");
-var weatherListEl = document.querySelector("#weather-list");
 var fiveDayEl = document.querySelector("#five-day")
 var loadSearchesEl = document.getElementById("saved-searches")
+var forcastBlock = document.getElementById("current-forcast")
+var forcastDiv = document.querySelector(".forcastday1");
 console.log("for",fiveDayEl)
 
 var loadedSearches = []
+var userClick = 0
 
 //GETS WEATHER
 var getWeather = function(city){
@@ -23,7 +25,9 @@ fetch(apiUrl)
 .then(function(response){
     if(response.ok){
         response.json().then(function(data){
-            displayCities(data, city);
+           
+      
+            displayCity(data);
            
             
            
@@ -45,19 +49,21 @@ fetch(apiUrl)
 
 
 //DISPLAYS WEATHER
-var displayCities = function(city, searchTerm){
+var displayCity = function(city){
+   
+             
 //    console.log("this is the data", city.dt)
    var day = new Date(city.dt*1000)
 //    console.log(day.toDateString())
 
-    weatherListEl.textContent="";
     
     var cityInfo = city.name;
     var cityDate = day.toDateString();
     var weatherTemp = city.main.temp;
     var weatherWind = city.wind.speed;
     var weatherHumid= city.main.humidity;    
-    var testingDiv = document.querySelector("#city-container");
+
+    cityEl.innerHTML = "";
 
     var htmlBlocks = `
         <h1 class="testingH1">${cityInfo}</h1>
@@ -68,9 +74,9 @@ var displayCities = function(city, searchTerm){
             <li>Humidity: ${weatherHumid}</li>
         </ul>
     `
+    console.log(htmlBlocks)
 
-    testingDiv.insertAdjacentHTML('afterend', htmlBlocks);
-
+    cityEl.insertAdjacentHTML('afterbegin', htmlBlocks);
 }
 
 
@@ -84,8 +90,6 @@ var getWeatherForcast = function(city){
     })
 
     .then(function(data){
-    
-         console.log("get weather" , data)
          
         displayForcast(data, city)
         
@@ -102,7 +106,8 @@ var getWeatherForcast = function(city){
 
 var displayForcast = function(city){
 
-
+  
+ 
     var date1 = new Date(city.list[8].dt*1000)
     var cityDate1=date1.toDateString();
     var dayTemp1 = city.list[8].main.temp;
@@ -140,8 +145,7 @@ var displayForcast = function(city){
     var icon5 = city.list[39].weather[0].icon;
    
 
-        var forcastDiv = document.querySelector(".forcastday1");
-
+        forcastDiv.innerHTML = "";
 
         var htmlForcast = `
         
@@ -197,7 +201,7 @@ var displayForcast = function(city){
         </div>
         `
 
-        forcastDiv.insertAdjacentHTML('afterend', htmlForcast);
+        forcastDiv.insertAdjacentHTML('afterbegin', htmlForcast);
        
 
 }
@@ -205,19 +209,24 @@ var displayForcast = function(city){
 //////////////////-----------------------------------------------------------------------------------------------
 //SUMITS CITY
 var formSubmitHandler = function(event){
+    
     event.preventDefault();
     // console.log(event);
-    
+
+    userClick++
+    console.log("user clicks", userClick)
     //input from user
     var cityInput = userCityInputEl.value.trim();
-
+  
     if (cityInput) {
         getWeather(cityInput);
         getWeatherForcast(cityInput);
         userCityInputEl.value = "";
+        
     }
     else{
         alert("Please enter a valid city");
+        
     }
 
     loadSearchesEl.innerHTML="";
