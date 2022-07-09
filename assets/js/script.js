@@ -229,13 +229,12 @@ var formSubmitHandler = function(event){
         
     }
 
-    loadSearchesEl.innerHTML="";
 
     var saveCityInput = cityInput
     localStorage.setItem("saveSearches", saveCityInput)
     var loadCityInput = localStorage.getItem("saveSearches")
     
-    loadSearchesEl.innerHTML="";
+    
 
     var createListEL = document.createElement("li");
     createListEL.textContent = loadCityInput

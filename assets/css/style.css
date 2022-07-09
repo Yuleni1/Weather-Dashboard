@@ -20,3 +20,13 @@ ul {
   padding: 10px 10px 50px 10px;
   margin: 5px;
 }
+
+div#saved-searches li {
+  list-style: none;
+  font-size: 26px;
+  text-align: center;
+  padding: 14px;
+  border: solid lightblue;
+  border-radius: 18px;
+  margin: 10px;
+}
