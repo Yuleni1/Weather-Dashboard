@@ -231,15 +231,18 @@ var formSubmitHandler = function(event){
 
 
     var saveCityInput = cityInput
-    localStorage.setItem("saveSearches", saveCityInput)
-    var loadCityInput = localStorage.getItem("saveSearches")
-    
-    
+    if(!saveCityInput){
+        return false;
+    }else{
+localStorage.setItem("saveSearches", saveCityInput)
+var loadCityInput = localStorage.getItem("saveSearches")
 
-    var createListEL = document.createElement("li");
-    createListEL.textContent = loadCityInput
-    loadSearchesEl.appendChild(createListEL);
 
+
+var createListEL = document.createElement("button");
+createListEL.textContent = loadCityInput
+loadSearchesEl.appendChild(createListEL);
+    }
 }
 
     
